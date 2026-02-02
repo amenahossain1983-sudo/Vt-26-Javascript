@@ -1,0 +1,31 @@
+#output {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+body{
+    background-color: chocolate;
+}
+.text {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.AC {
+    text-align: center;
+    width: 200px;
+    background-color: aliceblue;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#Auto, #knapp{
+    background: none;
+    border: none;
+    margin: none;
+}
+#knapp{
+    display: flex;
+    justify-content: center;
+    width: 1900px;
+    height: 300px;
+}
