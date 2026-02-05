@@ -13,9 +13,12 @@ const params = new URLSearchParams(window.location.search);
 const text = documents.getElementById('greetings');
 let username = params.get('username');
 if(username) 
-    text.textContent = Välkommen {username}
+    text.textContent = Välkommen ${'username}
+
+
+
+
 
     </script>
-    
 </body>
 </html>
