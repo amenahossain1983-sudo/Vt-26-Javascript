@@ -8,15 +8,17 @@
 </head>
 
 <body>
+    <button id="btnHyr"> </button>
+    <p id = "statusText">Status: Ledig</p>
+    <div id = "historik"></div>
     <script>
 const params = new URLSearchParams(window.location.search);
-const text = documents.getElementById('greetings');
+const text = document.getElementById('greetings');
 let username = params.get('username');
 if(username) 
-    text.textContent = Välkommen ${'username}
 
 
-
+    text.textContent = 'Välkommen ${username}';
 
 
     </script>
