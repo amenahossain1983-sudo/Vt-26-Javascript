@@ -8,8 +8,8 @@
 </head>
 
 <body>
-    <button id="btnHyr"> </button>
-    <p id = "statusText">Status: Ledig</p>
+    <button id="btnHyr" style="display: none;"> </button>
+    <p id = "statusText" style="display: none;"> Status: Ledig</p>
     <div id = "historik"></div>
     <script>
 const params = new URLSearchParams(window.location.search);
@@ -17,10 +17,30 @@ const text = document.getElementById('greetings');
 let username = params.get('username');
 if(username) 
 
+btnHur.style.display = "block";
+statusText.style.display="block";
+historik.style.display="block";
+
+
 
     text.textContent = 'Välkommen ${username}';
 
-
-    </script>
+const btnHyr = document.getElementById('btnHyr'); //Här så hämtar vi knappen "bntHyr" därmed statusen av knappet när använder trycker på det    
+const statusText = document.getElementById('statusText');
+let isHyrd = false;  // Visar att det inte än finns något uthyrd elsparre
+btnHyr.textContent = 'Hyr elscooter';
+btnHyr.addEventListener('click', function() { // FUnktionen till när man trycker, vad som händer alltså
+if(!isHyrd) {
+    isHyrd=true;
+    statusText.textContent ="Status: Uthyrd";
+    btnHyr.textContent="Lämnta tillbaka";
+}else {
+    isHyrd = false;
+    statusText.textContent="Status:Ledig";
+    btnHyr.textContent="Hyr elscooter";
+}
+}
+);
+</script>
 </body>
 </html>
