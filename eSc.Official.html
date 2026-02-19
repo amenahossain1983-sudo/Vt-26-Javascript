@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,44 +10,130 @@
 
 <body>
     <button id="btnHyr"> Hyr elcooter </button>
-    <p id = "statusText" > Status: Ledig</p>
-    <div id = "historik"></div>
+    <button id="perMinut"> 1 minut </button>
+    <button id="trettioMinut"> 30 minuter </button>
+    <button id="1Timme"> 60 minuter </button>
+
+    <p id="statusText"> Status: Ledig</p>
+    <p id="historik"> </p>
     <script>
-const params = new URLSearchParams(window.location.search);
-const text = document.getElementById('greetings');
-let username = params.get('username');
-if(username) {
+        const params = new URLSearchParams(window.location.search);
+        const text = document.getElementById('greetings');
+        let username = params.get('username');
+
+        const perMinut = document.getElementById('perMinut');
+        const trettioMinut = document.getElementById('trettioMin');
+        const sextioMin = document.getElementById('sextioMin');
+
+        let pris = 0;
+
+        perMinut.addEventListener('click', function () { // 
+            if (isHyrd) {
+                pris += 1;
+                historik.textContent = "Pris: " + pris + "kr";
+            }
+            trettioMinut.addEventListener('click', function () {
+                if (isHyrd) {
+                    pris += 30;
+                    historik.textContent = "Pris: " + pris + "kr";
+                }
+                sextioMin.addEventListener('click', function () {
+                    if (isHyrd) {
+                        pris + 60;
+                        historik.textContent = "Pris: " + pris + "kr";
+                    }
+                })
+            });
+        });
+
+        if (username) {
+            text.textContent = 'Välkommen ${username}';
+
+        }
 
 
 
-}
-
-btnHyr.style.display = "block";
-statusText.style.display="block";
-historik.style.display="block";
 
 
-    text.textContent = 'Välkommen ${username}';
+        const btnHyr = document.getElementById('btnHyr'); //Här så hämtar vi knappen "bntHyr" därmed statusen av knappet när använder trycker på det    
+        const statusText = document.getElementById('statusText');
+        const historik = document.getElementById('historik');
 
-const btnHyr = document.getElementById('btnHyr'); //Här så hämtar vi knappen "bntHyr" därmed statusen av knappet när använder trycker på det    
-const statusText = document.getElementById('statusText');
-let isHyrd = false;  // Visar att det inte än finns något uthyrd elsparre - Dvs, att det int
-btnHyr.textContent = 'Hyr elscooter';
-btnHyr.addEventListener('click', function() { // Funktionen till när man trycker, vad som händer alltså
-if(!isHyrd) {
-    isHyrd=true;
-    statusText.textContent ="Status: Uthyrd";
-    btnHyr.textContent="Lämnta tillbaka";
-    statusText.style.color="green";
+        // Här så gör vi så att elementen syns
 
-}else {
-    isHyrd = false;
-    statusText.textContent="Status:Ledig";
-    btnHyr.textContent="Hyr elscooter";
-    statusText.style.color="green";
-}
-}
-);
-</script>
+        btnHyr.style.display = "block";
+        statusText.style.display = "block";
+        historik.style.display = "block";
+
+
+        let isHyrd = false;  // Visar att det inte än finns något uthyrd elsparre - Dvs, att det inte finns
+        let startTid = 0; // Troligen sp behöver vi en variabel som behöver för att spara starttiden
+        btnHyr.textContent = 'Hyr elscooter';
+        btnHyr.addEventListener('click', function () { // Funktionen till när man trycker, vad som händer alltså
+
+            if (!isHyrd) { // Om den inte är hyrd
+                isHyrd = true;
+                statusText.textContent = "Status: Uthyrd";
+                btnHyr.textContent = "Lämna tillbaka";
+
+                // Detta sparar tiden när man ska börja hyra
+                startTid = Date.now();
+
+
+                // Alternativt sätt att skapa mitt timern ( dock ej klar )
+                // const timerId = setInterval(function() {
+                //if(startTid>=0) {
+                //  text.textContent = "tiden är:" + startTid;
+                // startTid++;
+                //}},1000);
+
+
+
+                // Ska förärndra css
+
+                document.body.style.backgroundColor = "Green";
+
+
+                //isHyrd = false;
+                //statusText.textContent="Status:Ledig";
+                //btnHyr.textContent="Hyr elscooter"; 
+
+                //let slutTid = Date.now();
+                //let sekunder = Math.floor((slutTid-startTid) / 1000);
+
+                //historik.textContent+="<p>Du hyrde i"+ sekunder+"sekunder.</p>";
+                // Här så ska vi räkna hur långt tid man hyrde
+
+
+
+
+
+                document.body.style.backgroundColor = "White";
+
+
+
+            }
+            else {
+                isHyrd = false;
+                statusText.textContent = "Status:Ledig";
+                btnHyr.textContent = "Hyr elscooter";
+
+                let slutTid = Date.now();
+                let sekunder = Math.floor((slutTid - startTid) / 1000);
+
+                historik.textContent += " Du hyrde i " + sekunder + " sekunder " ;
+
+                historik.textContent += "Total pris: " + pris + " kr";
+                pris = 0;
+            }
+
+
+            // Alternativ sätt att ändra css för : statusText.style.color="green";
+
+
+        }
+        );
+    </script>
 </body>
+
 </html>
