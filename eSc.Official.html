@@ -5,24 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Official</title>
-    <h1 id="greetings">Välkommen afnan</h1>
+    <h1 id="greetings"></h1>
 </head>
 
 <body>
     <button id="btnHyr"> Hyr elcooter </button>
+    <p id="meddelande"></p>
     <button id="perMinut"> 1 minut </button>
     <button id="trettioMinut"> 30 minuter </button>
     <button id="1Timme"> 60 minuter </button>
     <p id="statusText"> Status: Ledig</p>
     <p id="historik"> </p>
+    <button id="avsluta"> Avsluta </button>
     <script>
         const params = new URLSearchParams(window.location.search);
         const text = document.getElementById('greetings');
         let username = params.get('username');
-
+        const endBtn = document.getElementById('avsluta');
         const perMinut = document.getElementById('perMinut');
-        const trettioMinut = document.getElementById('trettioMin');
-        const sextioMin = document.getElementById('sextioMin');
+        const trettioMinut = document.getElementById('trettioMinut');
+        const sextioMin = document.getElementById('1Timme');
+        const meddelande = document.getElementById('meddelande');
 
         let pris = 0;
 
@@ -30,29 +33,29 @@
             if (isHyrd) {
                 pris += 1;
                 historik.textContent = "Pris: " + pris + "kr";
-            }
+            } });
+
             trettioMinut.addEventListener('click', function () {
                 if (isHyrd) {
                     pris += 30;
                     historik.textContent = "Pris: " + pris + "kr";
                 }
-                sextioMin.addEventListener('click', function () {
+                  });
+                
+                  sextioMin.addEventListener('click', function () {
                     if (isHyrd) {
-                        pris + 60;
+                        pris += 60;
                         historik.textContent = "Pris: " + pris + "kr";
                     }
-                })
-            });
-        });
+                      });
+            
+          
+      
 
         if (username) {
-            text.textContent = 'Välkommen ${username}';
+            text.textContent = `Välkommen, ${username} !`;
 
         }
-
-
-
-
 
         const btnHyr = document.getElementById('btnHyr'); //Här så hämtar vi knappen "bntHyr" därmed statusen av knappet när använder trycker på det    
         const statusText = document.getElementById('statusText');
@@ -63,7 +66,6 @@
         btnHyr.style.display = "block";
         statusText.style.display = "block";
         historik.style.display = "block";
-
 
         let isHyrd = false;  // Visar att det inte än finns något uthyrd elsparre - Dvs, att det inte finns
         let startTid = 0; // Troligen sp behöver vi en variabel som behöver för att spara starttiden
@@ -78,39 +80,11 @@
                 // Detta sparar tiden när man ska börja hyra
                 startTid = Date.now();
 
+            meddelande.textContent = "Välj hur länge du vill hyra: 1 minut, 30 minuter eller 60 minuter";
+            // Basic css förändring
+            document.body.style.backgroundColor="lightgreen";
 
-                // Alternativt sätt att skapa mitt timern ( dock ej klar )
-                // const timerId = setInterval(function() {
-                //if(startTid>=0) {
-                //  text.textContent = "tiden är:" + startTid;
-                // startTid++;
-                //}},1000);
-
-
-
-                // Ska förärndra css
-
-                document.body.style.backgroundColor = "Green";
-
-
-                //isHyrd = false;
-                //statusText.textContent="Status:Ledig";
-                //btnHyr.textContent="Hyr elscooter"; 
-
-                //let slutTid = Date.now();
-                //let sekunder = Math.floor((slutTid-startTid) / 1000);
-
-                //historik.textContent+="<p>Du hyrde i"+ sekunder+"sekunder.</p>";
-                // Här så ska vi räkna hur långt tid man hyrde
-
-
-
-
-
-                document.body.style.backgroundColor = "White";
-
-
-
+        
             }
             else {
                 isHyrd = false;
@@ -118,20 +92,41 @@
                 btnHyr.textContent = "Hyr elscooter";
 
                 let slutTid = Date.now();
-                let sekunder = Math.floor((slutTid - startTid) / 1000);
+                let minuter = Math.floor((slutTid - startTid) / 60000);
 
-                historik.textContent += " Du hyrde i " + sekunder + " sekunder " ;
+                historik.textContent += " Du hyrde i " + minuter + " minuter " ;
 
                 historik.textContent += "Total pris: " + pris + " kr";
                 pris = 0;
+
+                document.body.style.backgroundColor="white";
+                
             }
+          
+            
 
 
             // Alternativ sätt att ändra css för : statusText.style.color="green";
-
+              
 
         }
         );
+        endBtn.addEventListener('click', function() {
+            historik.textContent ="";
+            meddelande.textContent="";
+
+            statusText.textContent="Status: Ledig";
+            btnHyr.textContent ="Hyr elscooter";
+
+            pris = 0;
+            isHyrd = false;
+
+            document.body.style.backgroundColor="white";
+
+        })
+    
+        
+
     </script>
 </body>
 
